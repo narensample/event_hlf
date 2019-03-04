@@ -1,0 +1,131 @@
+
+-- -- -- -- -- - Channel Creation One Time-- -- -- -- -- -- -
+
+  //Create Cannel publicfinancenet
+
+curl -s -X POST \
+  http://134.209.111.193:4003/createChannel \
+  -H "content-type: application/json" \
+  -d '{
+	"channelName":"publicfinancenet",
+  "orgName": "NBD"
+}'
+
+
+-- -- -- -- -- -- -- --Onboard Peers-- -- -- -- -- -- -- -- --
+//Add NBD Peers to publicfinancenet Channel
+curl -s -X POST \
+  http://134.209.111.193:4003/joinPeers \
+  -H "content-type: application/json" \
+  -d '{
+	"channelName":"publicfinancenet",
+  "orgName": "NBD",
+	"peers": ["NBD-peer0-NBD","NBD-peer1-NBD"]
+}'
+
+
+-- --Install and Instantiate chaincode-- -- -
+
+//Install Chain code on publicfinancenet Channel
+
+curl -s -X POST \
+  http://134.209.111.193:4003/installChaincode \
+  -H "content-type: application/json" \
+  -d '{
+  "chaincodeName": "invoice",
+  "chaincodePath": "github.com/invoice/go",
+  "chaincodeType": "golang",
+  "chaincodeVersion": "v0",
+  "orgName": "NBD",
+	"peers": ["NBD-peer0-NBD","NBD-peer1-NBD"]
+}'
+
+// Instantiate chain code
+curl -s -X POST \
+  http://134.209.111.193:4003/instantiateChaincode \
+  -H "content-type: application/json" \
+  -d '{
+  "chaincodeName": "invoice",
+  "chaincodeVersion": "v0",
+  "orgName": "NBD",
+  "channelName": "publicfinancenet",
+  "chaincodeType": "golang",
+  "args": [""],
+	"peers": ["NBD-peer0-NBD","NBD-peer1-NBD"]
+}'
+
+-- -- - END Install and Instantiate chaincode END-- -- -
+
+-- --Invoke and query chaincode-- -- -
+
+
+//mortgage
+curl -s -X POST \
+  http://134.209.111.193:4003/invoke \
+  -H "content-type: application/json" \
+  -d '{
+  "channelName":"publicfinancenet",
+  "chaincodeName":"invoice",
+  "fcn": "create",
+  "userName": "nbd",
+  "orgName": "NBD",
+  "args": [{"OTHash":"1234567890","BuyerID":"sam","OwnSellerIDer":"Naren","PropertyID":"fff","MpdNocHash":"ffggg","FewaNocHash":"1113333","MojNocHash":"issued","BuyerIBAN":"issued","SellerIBAN":"issued","Swift":"issued","Amount":"issued","ApprovedMortgageHash":"issued","Status":"issued"}],
+	"peers": ["NBD-peer0-NBD","NBD-peer1-NBD"]
+}'
+
+//approveMortgageRequest
+curl -s -X POST \
+  http://134.209.111.193:4003/invoke \
+  -H "content-type: application/json" \
+  -d '{
+  "channelName":"publicfinancenet",
+  "chaincodeName":"invoice",
+  "fcn": "approveMortgageRequest",
+  "userName": "nbd",
+  "orgName": "NBD",
+  "args": [{"OTHash":"1234567890","BuyerID":"sam","OwnSellerIDer":"Naren","PropertyID":"fff","MpdNocHash":"ffggg","FewaNocHash":"1113333","MojNocHash":"issued","BuyerIBAN":"issued","SellerIBAN":"issued","Swift":"issued","Amount":"issued","ApprovedMortgageHash":"issued","Status":"issued"}],
+	"peers": ["NBD-peer0-NBD","NBD-peer1-NBD"]
+}'
+
+//confirmMoneyTransferToSeller
+curl -s -X POST \
+  http://134.209.111.193:4003/invoke \
+  -H "content-type: application/json" \
+  -d '{
+  "channelName":"publicfinancenet",
+  "chaincodeName":"invoice",
+  "fcn": "confirmMoneyTransferToSeller",
+  "userName": "nbd",
+  "orgName": "NBD",
+  "args": [{"OTHash":"1234567890","BuyerID":"sam","OwnSellerIDer":"Naren","PropertyID":"fff","MpdNocHash":"ffggg","FewaNocHash":"1113333","MojNocHash":"issued","BuyerIBAN":"issued","SellerIBAN":"issued","Swift":"issued","Amount":"issued","ApprovedMortgageHash":"issued","Status":"issued"}],
+	"peers": ["NBD-peer0-NBD","NBD-peer1-NBD"]
+}'
+
+//Query ChainCode publicfinancenet
+
+curl -s -X POST \
+  http://134.209.111.193:4003/query \
+  -H "content-type: application/json" \
+  -d '{
+    "chaincodeName": "invoice",
+    "userName": "nbd",
+    "orgName": "NBD",
+    "channelName":"publicfinancenet",
+    "peers": "NBD-peer0-NBD",
+    "fcn": "query",
+    "args": ["1234567890"]
+}'
+
+//get latest ot
+curl -s -X POST \
+  http://134.209.111.193:4003/query \
+  -H "content-type: application/json" \
+  -d '{
+    "chaincodeName": "invoice",
+    "userName": "nbd",
+    "orgName": "NBD",
+    "channelName":"publicfinancenet",
+    "peers": "NBD-peer0-NBD",
+    "fcn": "queryAll",
+    "args": ["1234567890"]
+}'

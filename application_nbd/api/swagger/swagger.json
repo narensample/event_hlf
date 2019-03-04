@@ -1,0 +1,798 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.2.0",
+    "title": "coalescence-webserver",
+    "description": "webserver to communicate coalescence network",
+    "license": {
+      "name": "Blockgemini",
+      "url": "https://www.blockgemini.com/"
+    }
+  },
+  "host": "localhost:4003",
+  "basePath": "",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/addConfiguration": {
+      "post": {
+        "tags": [
+          "Configuration"
+        ],
+        "description": "<<<<<<<<<<<<<<<<< A D D   C O N F I G U R A T I O N >>>>>>>>>>>>>>>>>",
+        "parameters": [
+          {
+            "name": "caAdmin",
+            "name": "orgName",
+            "name": "consortiumName",
+            "name": "customerID",
+            "name": "orgMSP",
+            "name": "channelName",
+            "name": "orderers",
+            "name": "peers",
+            "name": "ca",
+            "in": "body",
+            "description": "Configuration that we want to use to contact our network",
+            "schema": {
+              "$ref": "#/definitions/Configuration"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully added config object",
+            "schema": {
+              "$ref": "#/definitions/Configuration"
+            }
+          }
+        }
+      }
+    },
+    "/createUser": {
+      "post": {
+        "tags": [
+          "OrgUsers"
+        ],
+        "description": "Create new user in system",
+        "parameters": [
+          {
+            "name": "username",
+            "name": "orgName",
+            "in": "body",
+            "description": "User that we want to create",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "New user has been created successfully",
+            "schema": {
+              "$ref": "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/createChannel": {
+      "post": {
+        "tags": [
+          "ChannelOps"
+        ],
+        "description": "<<<<<<<<<<<<<<<<< C R E A T E  C H A N N E L >>>>>>>>>>>>>>>>>",
+        "parameters": [
+          {
+            "name": "channelName",
+            "name": "orgName",
+            "in": "body",
+            "description": "Channel that we want to create",
+            "schema": {
+              "$ref": "#/definitions/createChannel"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "New Channel has been created successfully",
+            "schema": {
+              "$ref": "#/definitions/createChannel"
+            }
+          }
+        }
+      }
+    },
+    "/joinPeers": {
+      "post": {
+        "tags": [
+          "ChannelOps"
+        ],
+        "description": "<<<<<<<<<<<<<<<<< J O I N  C H A N N E L >>>>>>>>>>>>>>>>>",
+        "parameters": [
+          {
+            "name": "channelName",
+            "name": "peers",
+            "name": "orgName",
+            "in": "body",
+            "description": "Add Peers to Channel",
+            "schema": {
+              "$ref": "#/definitions/joinPeers"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully joined peers",
+            "schema": {
+              "$ref": "#/definitions/joinPeers"
+            }
+          }
+        }
+      }
+    },
+    "/updateAnchorPeers": {
+      "post": {
+        "tags": [
+          "ChannelOps"
+        ],
+        "description": "<<<<<<<<<<<<<<<<< updateAnchorPeers >>>>>>>>>>>>>>>>>",
+        "parameters": [
+          {
+            "name": "channelName",
+            "name": "orgName",
+            "in": "body",
+            "description": "update Anchor Peers to Channel",
+            "schema": {
+              "$ref": "#/definitions/updateAnchorPeers"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully updated Anchor peers",
+            "schema": {
+              "$ref": "#/definitions/updateAnchorPeers"
+            }
+          }
+        }
+      }
+    },
+    "/updateChannel": {
+      "post": {
+        "tags": [
+          "ChannelOps"
+        ],
+        "description": "<<<<<<<<<<<<<<<<< U P D A T E  C H A N N E L >>>>>>>>>>>>>>>>>",
+        "parameters": [
+          {
+            "name": "channelName",
+            "name": "orgName",
+            "name": "newOrgName",
+            "in": "body",
+            "description": "update Anchor Peers to Channel",
+            "schema": {
+              "$ref": "#/definitions/updateChannel"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully updated Anchor peers",
+            "schema": {
+              "$ref": "#/definitions/updateChannel"
+            }
+          }
+        }
+      }
+    },
+    "/installChaincode": {
+      "post": {
+        "tags": [
+          "ChaincodeOps"
+        ],
+        "description": "<<<<<<<<<<<<<<<<< INSTALL CHAINCODE >>>>>>>>>>>>>>>>>",
+        "parameters": [
+          {
+            "name": "channelName",
+            "name": "orgName",
+            "name": "chaincodeName",
+            "name": "chaincodeVersion",
+            "name": "chaincodeType",
+            "name": "peers",
+            "name": "code",
+            "in": "body",
+            "description": "install chaincode on peers",
+            "schema": {
+              "$ref": "#/definitions/installChaincode"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully installed chaincode on peers",
+            "schema": {
+              "$ref": "#/definitions/installChaincode"
+            }
+          }
+        }
+      }
+    },
+    "/instantiateChaincode": {
+      "post": {
+        "tags": [
+          "ChaincodeOps"
+        ],
+        "description": "<<<<<<<<<<<<<<<<< INSTANTIATE CHAINCODE >>>>>>>>>>>>>>>>>",
+        "parameters": [
+          {
+            "name": "channelName",
+            "name": "orgName",
+            "name": "chaincodeName",
+            "name": "chaincodePath",
+            "name": "chaincodeVersion",
+            "name": "chaincodeType",
+            "name": "peers",
+            "name": "fcn",
+            "name": "args",
+            "name": "isPrivate",
+            "in": "body",
+            "description": "instantiate chaincode on channel",
+            "schema": {
+              "$ref": "#/definitions/instantiateChaincode"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully instantiated chaincode on peers",
+            "schema": {
+              "$ref": "#/definitions/instantiateChaincode"
+            }
+          }
+        }
+      }
+    },
+    "/invoke": {
+      "post": {
+        "tags": [
+          "FabOps"
+        ],
+        "description": "<<<<<<<<<<<<<<<<< INVOKE ON CHAINCODE >>>>>>>>>>>>>>>>>",
+        "parameters": [
+          {
+            "name": "channelName",
+            "name": "orgName",
+            "name": "chaincodeName",
+            "name": "channelName",
+            "name": "peers",
+            "name": "fcn",
+            "name": "args",
+            "in": "body",
+            "description": "invoke chaincode on channel",
+            "schema": {
+              "$ref": "#/definitions/invoke"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully invoked chaincode on peers",
+            "schema": {
+              "$ref": "#/definitions/invoke"
+            }
+          }
+        }
+      }
+    },
+    "/query": {
+      "post": {
+        "tags": [
+          "FabOps"
+        ],
+        "description": "<<<<<<<<<<<<<<<<< QUERY ON CHAINCODE >>>>>>>>>>>>>>>>>",
+        "parameters": [
+          {
+            "name": "channelName",
+            "name": "orgName",
+            "name": "chaincodeName",
+            "name": "channelName",
+            "name": "peers",
+            "name": "fcn",
+            "name": "args",
+            "in": "body",
+            "description": "query chaincode on channel",
+            "schema": {
+              "$ref": "#/definitions/query"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully queried chaincode on peers",
+            "schema": {
+              "$ref": "#/definitions/query"
+            }
+          }
+        }
+      }
+    },
+    "/chaincodes": {
+      "post": {
+        "tags": [
+          "FabOps"
+        ],
+        "description": "<<<<<<<<<<<<<<<<< QUERY INSTALLED/INSTANTIATED CHAINCODE NAMES >>>>>>>>>>>>>>>>>",
+        "parameters": [
+          {
+            "name": "userName",
+            "name": "chaincodeName",
+            "name": "orgName",
+            "name": "channelName",
+            "name": "type",
+            "name": "peer",
+            "in": "body",
+            "description": "query chaincode on channel",
+            "schema": {
+              "$ref": "#/definitions/chaincodes"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully queried chaincodes on peer",
+            "schema": {
+              "$ref": "#/definitions/chaincodes"
+            }
+          }
+        }
+      }
+    },
+    "/queryTX": {
+      "post": {
+        "tags": [
+          "FabOps"
+        ],
+        "description": "<<<<<<<<<<<<<<<<< QUERY QUERYTX >>>>>>>>>>>>>>>>>",
+        "parameters": [
+          {
+            "name": "userName",
+            "name": "orgName",
+            "name": "channelName",
+            "name": "peer",
+            "name":"trxnID",
+            "in": "body",
+            "description": "query chaincode on channel",
+            "schema": {
+              "$ref": "#/definitions/queryTX"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Successfully queried queryTX on peer",
+            "schema": {
+              "$ref": "#/definitions/queryTX"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "User": {
+      "required": [
+        "username",
+        "orgName"
+      ],
+      "properties": {
+        "username": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "orgName": {
+          "type": "string",
+          "uniqueItems": false
+        }
+      }
+    },
+    "createChannel": {
+      "required": [
+        "orgName",
+        "channelName"
+      ],
+      "properties": {
+        "orgName": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "channelName": {
+          "type": "string",
+          "uniqueItems": true
+        }
+      }
+    },
+    "joinPeers": {
+      "required": [
+        "orgName",
+        "channelName",
+        "peers"
+      ],
+      "properties": {
+        "orgName": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "channelName": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "peers": {
+          "type": "string",
+          "uniqueItems": false
+        }
+      }
+    },
+    "updateAnchorPeers": {
+      "required": [
+        "orgName",
+        "channelName"
+      ],
+      "properties": {
+        "orgName": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "channelName": {
+          "type": "string",
+          "uniqueItems": true
+        }
+      }
+    },
+    "updateChannel": {
+      "required": [
+        "orgName",
+        "channelName",
+        "newOrgName"
+      ],
+      "properties": {
+        "orgName": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "channelName": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "newOrgName": {
+          "type": "string",
+          "uniqueItems": true
+        }
+      }
+    },
+    "installChaincode": {
+      "required": [
+        "peers",
+        "chaincodeName",
+        "chaincodeVersion",
+        "chaincodeType",
+        "orgName",
+        "code"
+      ],
+      "properties": {
+        "peers": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "chaincodeName": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "chaincodeVersion": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "chaincodeType": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "orgName": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "code": {
+          "type": "string",
+          "uniqueItems": false
+        }
+      }
+    },
+    "instantiateChaincode": {
+      "required": [
+        "peers",
+        "chaincodeName",
+        "chaincodeVersion",
+        "chaincodeType",
+        "orgName",
+        "fcn",
+        "args",
+        "isPrivate",
+        "channelName"
+      ],
+      "properties": {
+        "peers": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "chaincodeName": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "channelName": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "chaincodeVersion": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "chaincodeType": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "orgName": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "fcn": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "args": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "isPrivate": {
+          "type": "string",
+          "uniqueItems": false
+        }
+      }
+    },
+    "invoke": {
+      "required": [
+        "peers",
+        "chaincodeName",
+        "orgName",
+        "fcn",
+        "args",
+        "channelName",
+        "userName"
+      ],
+      "properties": {
+        "peers": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "chaincodeName": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "channelName": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "orgName": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "fcn": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "args": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "userName": {
+          "type": "string",
+          "uniqueItems": false
+        }
+      }
+    },
+    "query": {
+      "required": [
+        "peers",
+        "chaincodeName",
+        "orgName",
+        "fcn",
+        "args",
+        "channelName",
+        "userName"
+      ],
+      "properties": {
+        "peers": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "chaincodeName": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "channelName": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "orgName": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "fcn": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "args": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "userName": {
+          "type": "string",
+          "uniqueItems": false
+        }
+      }
+    },
+    "Configuration": {
+      "required": [
+        "caAdmin",
+        "consortiumName",
+        "orgName",
+        "customerID",
+        "orgMSP",
+        "orderers",
+        "peers",
+        "ca"
+      ],
+      "properties": {
+        "caAdmin": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "consortiumName": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "customerID": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "orgName": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "orgMSP": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "orderers": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "peers": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "ca": {
+          "type": "string",
+          "uniqueItems": false
+        }
+      }
+    },
+    "chaincodes": {
+      "required": [
+        "peer",
+        "chaincodeName",
+        "orgName",
+        "type",
+        "channelName",
+        "userName"
+      ],
+      "properties": {
+        "peer": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "chaincodeName": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "channelName": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "orgName": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "type": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "userName": {
+          "type": "string",
+          "uniqueItems": false
+        }
+      }
+    },
+    "queryTX": {
+      "required": [
+        "peer",
+        "orgName",
+        "trxnID",
+        "channelName",
+        "userName"
+      ],
+      "properties": {
+        "peer": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "channelName": {
+          "type": "string",
+          "uniqueItems": false
+        },
+        "orgName": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "trxnID": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "userName": {
+          "type": "string",
+          "uniqueItems": false
+        }
+      }
+    }
+  }
+}
