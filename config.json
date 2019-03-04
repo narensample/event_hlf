@@ -1,0 +1,10 @@
+{
+  "orgName": "NBD",
+  "channelName": "publicfinancenet",
+  "peerName": "NBD-peer0-NBD",
+  "CC_SRC_PATH": "./chaincode",
+  "admins": {
+    "username": "NBDadmin",
+    "secret": "NBDpw"
+  }
+}

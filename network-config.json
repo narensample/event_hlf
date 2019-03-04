@@ -1,0 +1,107 @@
+{
+  "name": "NBDBank-webserver-configuration",
+  "x-type": "hlfv1",
+  "description": "BANK network",
+  "version": "1.0",
+  "client": {
+    "organization": "NBD",
+    "credentialStore": {
+      "path": "./fabric-client-bpass-NBD",
+      "cryptoStore": {
+        "path": "/tmp/fabric-client-bpass-NBD"
+      },
+      "wallet": "wallet-name"
+    }
+  },
+  "channels": {
+    "publicfinancenet": {
+      "orderers": [
+        "orderer0"
+      ],
+      "peers": {
+        "NBD-peer0-NBD": {
+          "endorsingPeer": true,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": true,
+          "discover": true
+        },
+        "NBD-peer1-NBD": {
+          "endorsingPeer": false,
+          "chaincodeQuery": true,
+          "ledgerQuery": true,
+          "eventSource": false,
+          "discover": true
+        }
+      },
+      "chaincodes": [
+        "mycc:v0"
+      ]
+    }
+  },
+  "organizations": {
+    "NBD": {
+      "mspid": "NBDMSP",
+      "certificateAuthorities": [
+        "ca-NBD"
+      ],
+      "adminPrivateKey": {
+        "path": "crypto/crypto-config/peerOrganizations/NBD/users/Admin@NBD/msp/keystore/5c8c1c9da9cfb1ec78d7be5cf52927ce8aa4b91ad58d96360a90cb2fbb2942a4_sk"
+      },
+      "signedCert": {
+        "path": "crypto/crypto-config/peerOrganizations/NBD/users/Admin@NBD/msp/signcerts/Admin@NBD-cert.pem"
+      }
+    }
+  },
+  "orderers": {
+    "orderer0": {
+      "url": "grpcs://134.209.111.193:7050",
+      "grpcOptions": {
+        "ssl-target-name-override": "orderer0",
+        "grpc-max-send-message-length": -1,
+        "grpc.keepalive_time_ms": 600000000
+      },
+      "tlsCACerts": {
+        "path": "crypto/crypto-config/ordererOrganizations/finance.com/orderers/orderer0.finance.com/tls/ca.crt"
+      }
+    }
+  },
+  "peers": {
+    "NBD-peer0-NBD": {
+      "url": "grpcs://134.209.111.193:7051",
+      "eventUrl": "grpcs://134.209.111.193:7053",
+      "grpcOptions": {
+        "ssl-target-name-override": "NBD-peer0-NBD",
+        "grpc-max-send-message-length": -1,
+        "grpc.keepalive_time_ms": 600000
+      },
+      "tlsCACerts": {
+        "path": "crypto/crypto-config/peerOrganizations/NBD/peers/peer0.NBD/tls/ca.crt"
+      }
+    },
+    "NBD-peer1-NBD": {
+      "url": "grpcs://134.209.111.193:8051",
+      "eventUrl": "grpcs://134.209.111.193:8053",
+      "grpcOptions": {
+        "ssl-target-name-override": "NBD-peer1-NBD",
+        "grpc-max-send-message-length": -1,
+        "grpc.keepalive_time_ms": 600000
+      },
+      "tlsCACerts": {
+        "path": "crypto/crypto-config/peerOrganizations/NBD/peers/peer1.NBD/tls/ca.crt"
+      }
+    }
+  },
+  "certificateAuthorities": {
+    "ca-NBD": {
+      "url": "https://134.209.111.193:7054",
+      "httpOptions": {
+        "verify": false
+      },
+      "tlsCACerts": {
+        "path": "crypto/crypto-config/peerOrganizations/NBD/ca/ca.NBD-cert.pem"
+      },
+      "caName": "ca-NBD"
+    }
+  }
+}
